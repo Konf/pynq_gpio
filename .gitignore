@@ -1,0 +1,4 @@
+.Xil
+zynq_basicgpio/*
+bd/*
+!bd/zynq_system.bd
