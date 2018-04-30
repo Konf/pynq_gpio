@@ -101,7 +101,7 @@ set proj_dir [get_property directory [current_project]]
 set obj [get_projects zynq_basicgpio]
 set_property "default_lib" "xil_defaultlib" $obj
 set_property "ip_cache_permissions" "read write" $obj
-set_property "ip_output_repo" "C:/Users/Confusion/Desktop/zynq_basicgpio/workdir/zynq_basicgpio.cache/ip" $obj
+set_property "ip_output_repo" "$origin_dir/zynq_basicgpio/zynq_basicgpio.cache/ip" $obj
 set_property "part" "xc7z020clg400-1" $obj
 set_property "sim.ip.auto_export_scripts" "1" $obj
 set_property "simulator_language" "Mixed" $obj
@@ -118,7 +118,6 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 set obj [get_filesets sources_1]
 set files [list \
  "[file normalize "$origin_dir/bd/zynq_system.bd"]"\
- "[file normalize "$origin_dir/bd/hdl/zynq_system_wrapper.v"]"\
  "[file normalize "$origin_dir/rtl/zynq_top.v"]"\
 ]
 add_files -norecurse -fileset $obj $files
@@ -202,5 +201,8 @@ set_property "steps.write_bitstream.args.verbose" "0" $obj
 
 # set the current impl run
 current_run -implementation [get_runs impl_1]
+
+make_wrapper -files [get_files "$origin_dir/bd/zynq_system.bd"] -top
+add_files -norecurse -fileset sources_1 "$origin_dir/bd/hdl/zynq_system_wrapper.v"
 
 puts "INFO: Project created:zynq_basicgpio"
