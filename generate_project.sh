@@ -1,0 +1,1 @@
+vivado -mode=batch -nojournal -nolog -source generate_project.tcl
